@@ -1,0 +1,199 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: #000;
+  backdrop-filter: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: backdropIn 0.35s ease forwards;
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* Image enter/exit transitions */
+.enter {
+  animation: slideIn 0.3s cubic-bezier(0.25, 0, 0.1, 1) forwards;
+}
+.exit_next {
+  animation: slideOutLeft 0.26s cubic-bezier(0.25, 0, 0.1, 1) forwards;
+}
+.exit_prev {
+  animation: slideOutRight 0.26s cubic-bezier(0.25, 0, 0.1, 1) forwards;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes slideOutLeft {
+  to { opacity: 0; transform: translateX(-40px); }
+}
+@keyframes slideOutRight {
+  to { opacity: 0; transform: translateX(40px); }
+}
+
+.imageWrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(90vw, calc(85vh * var(--aspect-ratio, 1)));
+  max-height: 85vh;
+}
+
+.image {
+  width: 100%;
+  height: auto;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-lift);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.image.visible { opacity: 1; }
+
+.spinner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border: 1.5px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Close button */
+.close {
+  position: fixed;
+  top: 28px;
+  right: 32px;
+  z-index: 510;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast), background var(--transition-fast);
+}
+.close:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.1);
+}
+
+/* Counter */
+.counter {
+  position: fixed;
+  top: 34px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 510;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+.counterDivider { color: var(--border-hover); }
+
+/* Info panel */
+.infoPanel {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 510;
+  padding: 24px 40px;
+  background: linear-gradient(to top, rgba(10,10,10,0.9) 0%, transparent 100%);
+  pointer-events: none;
+}
+.infoLeft { max-width: 480px; }
+
+.infoTitle {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--text-primary);
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+}
+
+.infoMeta {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+}
+
+.infoDesc {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-style: italic;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+/* Arrows */
+.arrow {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 510;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast), background var(--transition-fast), transform var(--transition-fast);
+  transform-origin: center;
+}
+.arrowLeft  { left: 24px; }
+.arrowRight { right: 24px; }
+
+.arrow:hover {
+  color: var(--text-primary);
+  background: rgba(255,255,255,0.1);
+}
+.arrowLeft:hover  { transform: translateY(-50%) translateX(-2px); }
+.arrowRight:hover { transform: translateY(-50%) translateX(2px); }
+
+@media (max-width: 600px) {
+  .infoPanel { padding: 16px 20px; }
+  .arrowLeft  { left: 8px; }
+  .arrowRight { right: 8px; }
+  .arrow { width: 40px; height: 40px; }
+  .close { top: 16px; right: 16px; }
+}
