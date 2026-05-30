@@ -38,25 +38,16 @@
 }
 
 .imageWrap {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: min(90vw, calc(85vh * var(--aspect-ratio, 1)));
-  max-height: 85vh;
+  max-width: 96vw;
+  max-height: 92vh;
 }
 
 .image {
-  width: 100%;
+  max-width: 96vw;
+  max-height: 92vh;
+  width: auto;
   height: auto;
-  max-height: 85vh;
-  object-fit: contain;
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-lift);
-  opacity: 0;
-  transition: opacity 0.3s ease;
 }
-
 .image.visible { opacity: 1; }
 
 .spinner {
